@@ -22,19 +22,20 @@ const Navbar = () => {
   return (
     <div className="sticky top-0 z-99 bg-white">
       <div className="py-4 md:py-5 flex items-center">
-        <div className="flexItem font-bold text-3xl">NIKE</div>
-        <div className="flexItem text-center flex">
+        <div className="md:flex-1 font-bold text-3xl">NIKE</div>
+        <div className="md:flex-1 md:gap-10 justify-center text-center hidden md:flex">
           {navItems.map((item) => (
             <Link key={item.id} href={item.link}>
-              <p className="flex-1 cursor-pointer hover:text-slate-600">
+              <p className="cursor-pointer hover:text-slate-600">
                 {item.label}
               </p>
             </Link>
           ))}
         </div>
-        <div className="flexItem">
+        <div className="hidden md:flex-1 md:flex">
           <Search />
         </div>
+        <div className="md:hidden">S</div>
       </div>
     </div>
   );

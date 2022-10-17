@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.flexItem {
+  flex: 1;
+}
+.wrapper {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+.productFlexItem2 {
+  flex: 2;
+}
+.productFlexItem {
+  flex: 1;
+}
+.selectedSize {
+  background-color: black;
+  color: white;
+}

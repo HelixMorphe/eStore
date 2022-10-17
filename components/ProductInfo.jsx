@@ -30,8 +30,9 @@ const ProductInfo = ({ info, id }) => {
         <div className="pt-3">
           <p>Select Size</p>
           <div className="flex flex-wrap gap-2 w-[60%]">
-            {sizes.map((size) => (
+            {sizes.map((size, index) => (
               <p
+                key={index}
                 onClick={() => handleSelect(size)}
                 className={`${
                   selectedSize === size ? "selectedSize" : ""

@@ -6,6 +6,7 @@ export const userSlice = createSlice({
     isLoggedIn: false,
     name: null,
     email: null,
+    profileImg: null,
   },
   reducers: {
     updateUser: (state, action) => {
@@ -14,6 +15,7 @@ export const userSlice = createSlice({
         isLoggedIn: true,
         name: action.payload.name,
         email: action.payload.email,
+        profileImg: action.payload.image,
       };
     },
   },

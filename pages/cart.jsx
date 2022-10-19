@@ -2,9 +2,8 @@ import { getSession } from "next-auth/react";
 import React from "react";
 import { useSession } from "next-auth/react";
 
-function protectedpage() {
+function protectedpage({ user }) {
   const { data: session, status } = useSession();
-  console.log(session, status);
   if (status === "authenticated") {
     return <p>Signed in as {session.user.email}</p>;
   }
@@ -13,7 +12,7 @@ function protectedpage() {
 }
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  console.log(session, "Session");
+
   if (!session || session === null) {
     context.res.writeHead(302, { Location: "/login" });
     context.res.end();

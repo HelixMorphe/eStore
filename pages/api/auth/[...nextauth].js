@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import { redirect } from "next/dist/server/api-utils";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -13,4 +14,9 @@ export default NextAuth({
     // ...add more providers here
   ],
   secret: "this is a secrett",
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
+  },
 });

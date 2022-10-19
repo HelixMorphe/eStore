@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "../../components/Navbar";
 import ProductInfo from "../../components/ProductInfo";
@@ -37,12 +37,12 @@ const product = {
 const ProductItem = () => {
   const router = useRouter();
   const id = router.query.id;
-  if (!id) return <div>Loading</div>;
+
   return (
     <div className="wrapper">
       <Navbar />
-      <div className="mt-10">
-        <ProductInfo info={product} id={id} />
+      <div className="mt-10 max-w-[1400px] m-auto">
+        {!id ? <div>Loading</div> : <ProductInfo info={product} id={id} />}
       </div>
     </div>
   );

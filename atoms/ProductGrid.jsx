@@ -7,7 +7,7 @@ const ProductGrid = ({ images }) => {
     <div className="z-[-1] grid md:grid-cols-2 gap-8 w-[95%]">
       {images.map((image) => (
         <div key={image.id} className="relative h-[550px] z-0">
-          <Image src={image.url} layout="fill" />
+          <Image src={image.url} layout="fill" objectFit="cover" />
         </div>
       ))}
     </div>

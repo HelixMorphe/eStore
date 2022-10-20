@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import { redirect } from "next/dist/server/api-utils";
-
+import axios from "axios";
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
@@ -17,6 +17,10 @@ export default NextAuth({
   callbacks: {
     async redirect({ url, baseUrl }) {
       return baseUrl;
+    },
+    async signIn({ user }) {
+      axios.post("http://localhost:3000/api/users", user);
+      return true;
     },
   },
 });

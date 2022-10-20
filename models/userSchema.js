@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-console.log(mongoose.Types);
 const UserSchema = new mongoose.Schema({
   id: {
     type: String,

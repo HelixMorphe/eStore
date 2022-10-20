@@ -1,10 +1,12 @@
 import React from "react";
 import Search from "../atoms/Search";
 import Link from "next/link";
+import Image from "next/image";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 // import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import { useUser } from "../hooks/useUser";
 const navItems = [
   {
     id: 1,
@@ -23,6 +25,7 @@ const navItems = [
   },
 ];
 const Navbar = () => {
+  const { isLoggedIn, profileImg } = useUser();
   return (
     <div className="z-99 bg-white">
       <div className="py-4 md:py-5 flex items-center justify-between">
@@ -39,7 +42,17 @@ const Navbar = () => {
         <div className="hidden md:flex-1 md:flex items-center justify-center gap-6">
           <Search />
           <Link href="/login">
-            <PersonOutlineOutlinedIcon className="cursor-pointer" />
+            {isLoggedIn ? (
+              <div className="relative h-6 w-6">
+                <Image
+                  className="rounded-full"
+                  src={profileImg}
+                  layout="fill"
+                />
+              </div>
+            ) : (
+              <PersonOutlineOutlinedIcon className="cursor-pointer" />
+            )}
           </Link>
           <Link href="/wishlist">
             <FavoriteBorderIcon className="cursor-pointer" />

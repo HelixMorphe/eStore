@@ -18,6 +18,7 @@ export default async function handler(req, res) {
       } catch (e) {
         res.status(300).json({ success: false, reason: e });
       }
+      break;
     case "DELETE":
       try {
         const updatedItems = await User.findOneAndUpdate(
@@ -29,5 +30,6 @@ export default async function handler(req, res) {
       } catch (e) {
         res.status(300).json({ success: false, message: e });
       }
+      break;
   }
 }

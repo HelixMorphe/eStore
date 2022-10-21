@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
     type: [
       {
         itemId: { type: String },
-        quantity: { type: Number },
+        size: { type: String },
       },
     ],
   },

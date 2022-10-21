@@ -1,14 +1,22 @@
 import { getSession } from "next-auth/react";
 import React from "react";
 import { useSession } from "next-auth/react";
-
+import Navbar from "../components/Navbar";
+import Checkout from "../components/Checkout";
 function protectedpage({ user }) {
   const { data: session, status } = useSession();
-  if (status === "authenticated") {
-    return <p>Signed in as {session.user.email}</p>;
-  }
-
-  return <a href="/api/auth/signin">Sign in</a>;
+  return (
+    <div className="wrapper">
+      <Navbar />
+      {status === "authenticated" ? (
+        <div>
+          <Checkout email={session.user.email} />
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
+  );
 }
 export async function getServerSideProps(context) {
   const session = await getSession(context);

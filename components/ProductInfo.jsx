@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useUser } from "../hooks/useUser";
+import { useRouter } from "next/router";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ProductGrid from "../atoms/ProductGrid";
 import axios from "axios";
 
 const ProductInfo = ({ info, id }) => {
+  const router = useRouter();
   const { title, subTitle, sizes, price, description, images } = info;
   const [flag, setFlag] = useState(false);
   const [selectedSize, setSelectedSize] = useState(0);
@@ -14,14 +16,27 @@ const ProductInfo = ({ info, id }) => {
   const [product, setProduct] = useState({
     id: id,
   });
+  const [isAdding, setIsAdding] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const [error, setError] = useState({
+    status: false,
+    message: "",
+  });
   const handleSelect = (size) => {
+    setError({ ...error, status: false, message: "" });
     setSelectedSize(size);
   };
   const { isLoggedIn, email } = useUser();
   const handleAdd = async () => {
     if (!isLoggedIn) {
-      setFlag(true);
+      setError({ ...error, status: true, message: "Please Login." });
+    } else if (selectedSize === 0) {
+      setError({ ...error, status: true, message: "Please select size." });
+      console.log(error);
+    } else if (isAdded) {
+      router.push("/cart");
     } else {
+      setIsAdding(true);
       setProduct({ ...product, size: selectedSize, email });
       const items = await axios.post(
         "http://localhost:3000/api/cart/modifyCart",
@@ -30,19 +45,23 @@ const ProductInfo = ({ info, id }) => {
           item: {
             itemId: product.id,
             size: selectedSize,
+            price: info.price,
+            title: info.title,
+            imageUrl: info.images[0].url,
           },
         }
       );
-      console.log(items, "items");
+      console.log(items.data.success, "ITEMS");
+      setIsAdding(false);
+      if (items.data.success) {
+        setIsAdded(true);
+      }
     }
   };
   const handleWish = () => {
     setWish((wish) => !wish);
   };
-  useEffect(() => {
-    // console.log(selectedSize);
-    console.log(product, "CART");
-  }, [product]);
+  useEffect(() => {}, [product]);
   return (
     <div className="flex flex-col-reverse md:flex-row">
       <div className="productFlexItem2">
@@ -73,9 +92,15 @@ const ProductInfo = ({ info, id }) => {
         <div className="my-5 flex w-[90%] md:w-[70%] gap-2">
           <p
             onClick={handleAdd}
-            className="p-4 rounded-sm bg-black text-center flexItem text-white cursor-pointer"
+            className={`p-4 rounded-sm text-center flexItem cursor-pointer ${
+              isAdding
+                ? "bg-white text-black cursor-not-allowed"
+                : isAdded
+                ? "bg-white text-black"
+                : "bg-black text-white "
+            } border border-black`}
           >
-            Add to bag
+            {isAdding ? "Adding..." : isAdded ? "Go to Bag" : "Add to Bag"}
           </p>
           <p
             onClick={handleWish}
@@ -88,7 +113,11 @@ const ProductInfo = ({ info, id }) => {
             )}
           </p>
         </div>
-        {flag ? <p className="text-red-500 text-sm">* Please Login</p> : ""}
+        {error.status ? (
+          <p className="text-red-500 text-sm">* {error.message}</p>
+        ) : (
+          ""
+        )}
         <div className="w-[90%] leading-8">{description}</div>
       </div>
     </div>

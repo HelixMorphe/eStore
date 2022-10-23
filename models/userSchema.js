@@ -23,6 +23,9 @@ const UserSchema = new mongoose.Schema({
       {
         itemId: { type: String },
         size: { type: String },
+        price: { type: Number },
+        imageUrl: { type: String },
+        title: { type: String },
       },
     ],
   },

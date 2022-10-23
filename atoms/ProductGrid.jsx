@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 
 const ProductGrid = ({ images }) => {
-  console.log(images);
   return (
     <div className="z-[-1] grid md:grid-cols-2 gap-8 w-[95%]">
       {images.map((image) => (

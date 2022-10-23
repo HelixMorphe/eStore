@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "../../components/Navbar";
 import ProductInfo from "../../components/ProductInfo";
-
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 const product = {
   id: 1,
   title: "Nike React Pegasus Trail 4 GORE-TEX",
@@ -34,15 +35,28 @@ const product = {
     },
   ],
 };
+const getProduct = async (id) => {
+  if (id) {
+    const product = await axios.get(
+      `http://localhost:3000/api/product/getProducts?productId=${id}`
+    );
+    return product.data.data;
+  } else return 0;
+};
 const ProductItem = () => {
   const router = useRouter();
   const id = router.query.id;
-
+  const query = useQuery(["product", id], () => getProduct(id));
+  console.log(query.data);
   return (
     <div className="wrapper">
       <Navbar />
       <div className="mt-10 max-w-[1400px] m-auto">
-        {!id ? <div>Loading</div> : <ProductInfo info={product} id={id} />}
+        {!query.data ? (
+          <div>Loading</div>
+        ) : (
+          <ProductInfo info={query.data} id={query.data._id} />
+        )}
       </div>
     </div>
   );

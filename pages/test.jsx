@@ -2,9 +2,7 @@ import React, { useEffect } from "react";
 import { useUser } from "../hooks/useUser";
 const test = () => {
   const user = useUser();
-  useEffect(() => {
-    console.log(user, "USER");
-  }, [user]);
+  useEffect(() => {}, [user]);
   return <div>test</div>;
 };
 

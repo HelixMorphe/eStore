@@ -10,7 +10,6 @@ export const useUser = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (status === "authenticated" && !isLoggedIn) {
-      console.log(session.user);
       dispatch(updateUser(session.user));
     }
   }, [status]);

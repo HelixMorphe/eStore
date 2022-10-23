@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useUser } from "../hooks/useUser";
 const Checkout = ({ email }) => {
   const [items, setItems] = useState();
   useEffect(() => {

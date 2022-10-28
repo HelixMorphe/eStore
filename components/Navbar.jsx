@@ -29,10 +29,10 @@ const Navbar = () => {
   return (
     <div className="z-99 bg-white">
       <div className="py-4 md:py-5 flex items-center justify-between">
-        <div className="md:flex-1 font-bold text-3xl">NIKE</div>
+        <div className="md:flex-1 font-bold text-3xl">TESSARAC</div>
         <div className="md:flex-1 md:gap-10 justify-center text-center hidden md:flex">
           {navItems.map((item) => (
-            <Link key={item.id} href={item.link}>
+            <Link key={item.id} href={`/category${item.link}`}>
               <p className="cursor-pointer hover:text-slate-600">
                 {item.label}
               </p>
@@ -57,7 +57,7 @@ const Navbar = () => {
           <Link href="/wishlist">
             <FavoriteBorderIcon className="cursor-pointer" />
           </Link>
-          <Link href="/cart">
+          <Link href={isLoggedIn ? "/cart" : "/login"}>
             <LocalMallOutlinedIcon className="cursor-pointer" />
           </Link>
         </div>

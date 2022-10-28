@@ -7,8 +7,15 @@ export const userSlice = createSlice({
     name: null,
     email: null,
     profileImg: null,
+    cart: null,
   },
   reducers: {
+    updateCart: (state, action) => {
+      return {
+        ...state,
+        cart: action.payload.cart,
+      };
+    },
     updateUser: (state, action) => {
       return {
         ...state,
@@ -21,5 +28,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { updateUser } = userSlice.actions;
+export const { updateUser, updateCart } = userSlice.actions;
 export default userSlice.reducer;

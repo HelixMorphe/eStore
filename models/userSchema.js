@@ -29,9 +29,25 @@ const UserSchema = new mongoose.Schema({
       },
     ],
   },
-  orders: {
-    type: [String],
-  },
+  orders: [
+    {
+      address: { type: String },
+      mobile: { type: String },
+      city: { type: String },
+      state: { type: String },
+      country: { type: String },
+      pincode: { type: String },
+      items: [
+        {
+          itemId: { type: String },
+          size: { type: String },
+          price: { type: Number },
+          imageUrl: { type: String },
+          title: { type: String },
+        },
+      ],
+    },
+  ],
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

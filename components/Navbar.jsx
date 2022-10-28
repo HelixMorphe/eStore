@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <div className="z-99 bg-white">
       <div className="py-4 md:py-5 flex items-center justify-between">
-        <div className="md:flex-1 font-bold text-3xl">NIKE</div>
+        <div className="md:flex-1 font-bold text-3xl">TESSARAC</div>
         <div className="md:flex-1 md:gap-10 justify-center text-center hidden md:flex">
           {navItems.map((item) => (
             <Link key={item.id} href={`/category${item.link}`}>
